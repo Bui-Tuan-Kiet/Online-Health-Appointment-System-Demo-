@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+  <link rel="shortcut icon" href="../AdminLayout/assets/img/favicon.ico">
+  <title>Quản lý Bệnh nhân</title>
+
+  <!-- Bootstrap, FontAwesome, DataTables -->
+  <link rel="stylesheet" href="../AdminLayout/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../AdminLayout/assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../AdminLayout/assets/css/style.css">
+</head>
+
+<body>
+<div class="main-wrapper">
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <a href="Trangchu.html" class="logo">
+        <img src="../AdminLayout/assets/img/logo.png" width="35" height="35" alt=""> <span>Preclinic</span>
+      </a>
+    </div>
+    <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+    <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+    <ul class="nav user-menu float-right">
+      <li class="nav-item dropdown has-arrow">
+        <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+          <span class="user-img">
+            <img src="../AdminLayout/assets/img/user.jpg" class="rounded-circle" width="24">
+            <span class="status online"></span>
+          </span>
+          <span>Quản trị viên</span>
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">Hồ sơ</a>
+          <a class="dropdown-item" href="#">Cài đặt</a>
+          <a class="dropdown-item" href="#">Đăng xuất</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-inner slimscroll">
+      <div id="sidebar-menu" class="sidebar-menu">
+        <ul>
+          <li class="menu-title">Chính</li>
+          <li><a href="Admin.html"><i class="fa fa-dashboard"></i> <span>Bảng điều khiển</span></a></li>
+          <li><a href="Bacsi.html"><i class="fa fa-user-md"></i> <span>Bác sĩ</span></a></li>
+          <li class="active"><a href="Benhnhan.html"><i class="fa fa-wheelchair"></i> <span>Bệnh nhân</span></a></li>
+          <li><a href="Lichhen.html"><i class="fa fa-calendar"></i> <span>Lịch hẹn</span></a></li>
+          <li><a href="Nhanvien.html"><i class="fa fa-user"></i> <span>Nhân viên</span></a></li>
+          <li><a href="Khoa.html"><i class="fa fa-hospital-o"></i> <span>Khoa</span></a></li>
+          <li><a href="Ngaynghi.html"><i class="fa fa-calendar-times-o"></i> <span>Ngày nghỉ</span></a></li>
+          <li><a href="Chamcong.html"><i class="fa fa-check-square-o"></i> <span>Chấm công</span></a></li>
+          <li><a href="Taisan.html"><i class="fa fa-cube"></i> <span>Tài sản</span></a></li>
+          <li><a href="Trochuyen.html"><i class="fa fa-comments"></i> <span>Trò chuyện</span></a></li>
+          <li><a href="Caidat.html"><i class="fa fa-cog"></i> <span>Cài đặt</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="page-wrapper">
+    <div class="content">
+      <div class="row mb-3">
+        <div class="col-sm-12">
+          <h4 class="page-title">Quản lý Bệnh nhân</h4>
+          <button class="btn btn-success" data-toggle="modal" data-target="#addPatientModal">
+            <i class="fa fa-plus"></i> Thêm Bệnh nhân
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table id="tableBenhNhan" class="table table-bordered table-striped custom-table">
+              <thead class="bg-primary text-dark">
+                <tr>
+                    <th>STT</th>
+                    <th>Họ tên</th>
+                    <th>Email</th>
+                    <th>Số điện thoại</th>
+                    <th>Địa chỉ</th>
+                    <th>Giới tính</th>
+                    <th>Bệnh án</th>
+                    <th>Tuổi</th>
+                    <th>Chiều cao (m)</th>
+                    <th>Cân nặng (kg)</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Thêm/Sửa Bệnh nhân -->
+<div class="modal fade" id="addPatientModal" tabindex="-1" aria-labelledby="addPatientModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <form id="patientForm">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="addPatientModalLabel">Thông tin Bệnh nhân</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span> <!-- dấu "X" đóng -->
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="patientId">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label>Họ và tên</label>
+              <input type="text" class="form-control" id="hoTen" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Giới tính</label>
+              <select id="gioiTinh" class="form-select" required>
+                <option value="">-- Chọn --</option>
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+                <option value="Khác">Khác</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Tuổi</label>
+              <input type="number" class="form-control" id="tuoi" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Số điện thoại</label>
+              <input type="tel" class="form-control" id="sdt" required>
+            </div>
+            <div class="col-md-12 mb-3">
+              <label>Địa chỉ</label>
+              <textarea id="diaChi" class="form-control" rows="2" required></textarea>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Email</label>
+              <input type="email" class="form-control" id="email">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Bệnh án</label>
+              <textarea id="benhAn" class="form-control" rows="2"></textarea>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Chiều cao (cm)</label>
+              <input type="number" step="0.01" class="form-control" id="chieuCao">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Cân nặng (kg)</label>
+              <input type="number" step="0.01" class="form-control" id="canNang">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+          <button type="submit" class="btn btn-primary">Lưu</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../AdminLayout/assets/js/bootstrap.min.js"></script>
+<script src="../AdminLayout/assets/js/jquery.slimscroll.js"></script>
+<script src="../AdminLayout/assets/js/app.js"></script>
+<script>
+  $(document).ready(function () {
+      loadPatients();
+  });
+  
+  async function loadPatients() {
+      try {
+          const response = await fetch('http://localhost:3000/api/benhnhan');
+          const patients = await response.json();
+          renderPatients(patients);
+      } catch (error) {
+          console.error('❌ Lỗi load bệnh nhân:', error);
+      }
+  }
+  
+  function renderPatients(patients) {
+    const tbody = document.querySelector("#tableBenhNhan tbody");
+    tbody.innerHTML = "";
+
+    patients.forEach((patient, index) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${patient.HoTen || ""}</td>
+            <td>${patient.Email || ""}</td>
+            <td>${patient.SoDienThoai || ""}</td>
+            <td>${patient.DiaChi || ""}</td>
+            <td>${patient.GioiTinh || ""}</td>
+            <td>${patient.BenhAn || ""}</td>
+            <td>${patient.Tuoi !== null ? patient.Tuoi : ""}</td>
+            <td>${patient.ChieuCao !== null ? patient.ChieuCao : ""}</td>
+            <td>${patient.CanNang !== null ? patient.CanNang : ""}</td>
+            <td>
+                <button class="btn btn-sm btn-info" onclick='editPatient(${JSON.stringify(patient)})'>Sửa</button>
+                <button class="btn btn-sm btn-danger" onclick="deletePatient(${patient.MaBenhNhan})">Xoá</button>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+  
+  async function deletePatient(id) {
+      if (confirm("Bạn có chắc chắn muốn xoá bệnh nhân này?")) {
+          try {
+              const response = await fetch(`http://localhost:3000/api/benhnhan/${id}`, { method: "DELETE" });
+              const result = await response.json();
+              if (response.ok) {
+                  alert(result.message);
+                  loadPatients();
+              } else {
+                  alert("❌ " + result.message);
+              }
+          } catch (error) {
+              console.error("❌ Lỗi xoá bệnh nhân:", error);
+          }
+      }
+  }
+  
+  function editPatient(patient) {
+      document.getElementById("patientId").value = patient.MaBenhNhan;
+      document.getElementById("hoTen").value = patient.HoTen || "";
+      document.getElementById("gioiTinh").value = patient.GioiTinh || "";
+      document.getElementById("tuoi").value = patient.Tuoi || "";
+      document.getElementById("sdt").value = patient.SoDienThoai || "";
+      document.getElementById("diaChi").value = patient.DiaChi || "";
+      document.getElementById("email").value = patient.Email || "";
+      document.getElementById("benhAn").value = patient.BenhAn || "";
+      document.getElementById("chieuCao").value = patient.ChieuCao || "";
+      document.getElementById("canNang").value = patient.CanNang || "";
+  
+      $('#addPatientModal').modal('show');
+  }
+  
+  document.getElementById("patientForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const id = document.getElementById("patientId").value;
+      const patient = {
+          HoTen: document.getElementById("hoTen").value,
+          GioiTinh: document.getElementById("gioiTinh").value,
+          Tuoi: parseInt(document.getElementById("tuoi").value),
+          SoDienThoai: document.getElementById("sdt").value,
+          DiaChi: document.getElementById("diaChi").value,
+          Email: document.getElementById("email").value,
+          BenhAn: document.getElementById("benhAn").value,
+          ChieuCao: parseFloat(document.getElementById("chieuCao").value),
+          CanNang: parseFloat(document.getElementById("canNang").value)
+      };
+  
+      const method = id ? "PUT" : "POST";
+      const url = id ? `http://localhost:3000/api/benhnhan/${id}` : `http://localhost:3000/api/benhnhan`;
+  
+      try {
+          await fetch(url, {
+              method,
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(patient)
+          });
+          $('#addPatientModal').modal('hide');
+          document.getElementById("patientForm").reset();
+          loadPatients();
+      } catch (error) {
+          console.error("❌ Lỗi lưu bệnh nhân:", error);
+      }
+  });
+  </script>
+  
+</body>
+</html>

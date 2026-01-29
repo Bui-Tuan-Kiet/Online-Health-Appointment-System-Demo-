@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Cài đặt hệ thống</title>
+    <link rel="shortcut icon" href="../AdminLayout/assets/img/favicon.ico">
+    <link rel="stylesheet" href="../AdminLayout/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../AdminLayout/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../AdminLayout/assets/css/style.css">
+</head>
+<body>
+<div class="main-wrapper">
+    <div class="header">
+        <div class="header-left">
+            <a href="Admin.html" class="logo">
+                <img src="../AdminLayout/assets/img/logo.png" width="35" height="35" alt=""> <span>Preclinic</span>
+            </a>
+        </div>
+        <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+        <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+        <ul class="nav user-menu float-right">
+            <li class="nav-item dropdown has-arrow">
+                <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                    <span class="user-img"><img src="../AdminLayout/assets/img/user.jpg" class="rounded-circle" width="24"><span class="status online"></span></span>
+                    <span>Quản trị viên</span>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Hồ sơ</a>
+                    <a class="dropdown-item" href="#">Cài đặt</a>
+                    <a class="dropdown-item" href="#">Đăng xuất</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-inner slimscroll">
+            <div id="sidebar-menu" class="sidebar-menu">
+                <ul>
+                    <li class="menu-title">Chính</li>
+                    <li><a href="Admin.html"><i class="fa fa-dashboard"></i> <span>Bảng điều khiển</span></a></li>
+                    <li><a href="Bacsi.html"><i class="fa fa-user-md"></i> <span>Bác sĩ</span></a></li>
+                    <li><a href="Benhnhan.html"><i class="fa fa-wheelchair"></i> <span>Bệnh nhân</span></a></li>
+                    <li><a href="Lichhen.html"><i class="fa fa-calendar"></i> <span>Lịch hẹn</span></a></li>
+                    <li><a href="Nhanvien.html"><i class="fa fa-user"></i> <span>Nhân viên</span></a></li>
+                    <li><a href="Khoa.html"><i class="fa fa-hospital-o"></i> <span>Khoa</span></a></li>
+                    <li><a href="Ngaynghi.html"><i class="fa fa-calendar-times-o"></i> <span>Ngày nghỉ</span></a></li>
+                    <li><a href="Chamcong.html"><i class="fa fa-check-square-o"></i> <span>Chấm công</span></a></li>
+                    <li><a href="Taisan.html"><i class="fa fa-cube"></i> <span>Tài sản</span></a></li>
+                    <li><a href="Trochuyen.html"><i class="fa fa-comments"></i> <span>Trò chuyện</span></a></li>
+                    <li class="active"><a href="Caidat.html"><i class="fa fa-cog"></i> <span>Cài đặt</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nội dung -->
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 class="page-title">Cài đặt hệ thống</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="Admin.html">Trang chủ</a></li>
+                            <li class="breadcrumb-item active">Cài đặt</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Tên hệ thống</label>
+                                    <input type="text" class="form-control" value="Hệ thống Đặt lịch khám bệnh">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Email quản trị</label>
+                                    <input type="email" class="form-control" value="admin@clinic.vn">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Địa chỉ</label>
+                            <input type="text" class="form-control" value="12 Nguyễn Văn Bảo, Gò Vấp, TP.HCM">
+                        </div>
+                        <div class="form-group">
+                            <label>Số điện thoại</label>
+                            <input type="text" class="form-control" value="0123 456 789">
+                        </div>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="../AdminLayout/assets/js/jquery-3.2.1.min.js"></script>
+<script src="../AdminLayout/assets/js/popper.min.js"></script>
+<script src="../AdminLayout/assets/js/bootstrap.min.js"></script>
+<script src="../AdminLayout/assets/js/jquery.slimscroll.js"></script>
+<script src="../AdminLayout/assets/js/app.js"></script>
+</body>
+</html>

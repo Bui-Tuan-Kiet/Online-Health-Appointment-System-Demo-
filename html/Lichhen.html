@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Lịch Khám Bệnh | Quản Trị</title>
+    <link rel="shortcut icon" href="../AdminLayout/assets/img/favicon.ico">
+    <link rel="stylesheet" href="../AdminLayout/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../AdminLayout/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../AdminLayout/assets/css/style.css">
+</head>
+
+<body>
+<div class="main-wrapper">
+
+<!-- Modal Thêm/Sửa Lịch hẹn -->
+<div class="modal fade" id="addEditAppointmentModal" tabindex="-1" aria-labelledby="addEditAppointmentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <form id="appointmentForm">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="addEditAppointmentModalLabel">Thông tin Lịch hẹn</h5>
+          <button type="button" class="btn-close btn-close-white" data-dismiss="modal" aria-label="Đóng"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="maLichKham">
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label>Tên bác sĩ</label>
+              <input type="text" class="form-control" id="tenBacSi" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Khoa</label>
+              <input type="text" class="form-control" id="khoa" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Ngày khám</label>
+              <input type="date" class="form-control" id="ngayKham" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Giờ khám</label>
+              <input type="time" class="form-control" id="gioKham" required>
+            </div>
+            <div class="col-md-12 mb-3">
+              <label>Phòng khám</label>
+              <input type="text" class="form-control" id="phongKham">
+            </div>
+            <div class="col-md-12 mb-3">
+              <label>Chẩn đoán</label>
+              <textarea class="form-control" id="chanDoan" rows="2"></textarea>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Trạng thái</label>
+              <select class="form-control" id="trangThai" required>
+                <option value="">-- Chọn --</option>
+                <option value="Sẵn sàng">Sẵn sàng</option>
+                <option value="Đang chờ">Đang chờ</option>
+                <option value="Đã xác nhận">Đã xác nhận</option>
+                <option value="Đã huỷ">Đã huỷ</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Mã bệnh nhân</label>
+              <input type="number" class="form-control" id="maBenhNhan" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Mã nhân viên</label>
+              <input type="number" class="form-control" id="maNhanVien" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Mã bác sĩ</label>
+              <input type="number" class="form-control" id="maBacSi" required>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+          <button type="submit" class="btn btn-primary">Lưu</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-left">
+    <a href="Admin.html" class="logo">
+      <img src="../AdminLayout/assets/img/logo.png" width="35" height="35" alt=""> <span>Preclinic</span>
+    </a>
+  </div>
+  <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+  <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+
+  <ul class="nav user-menu float-right">
+    <li class="nav-item dropdown has-arrow">
+      <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+        <span class="user-img">
+          <img src="../AdminLayout/assets/img/user.jpg" class="rounded-circle" width="24">
+          <span class="status online"></span>
+        </span>
+        <span>Quản trị viên</span>
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Hồ sơ</a>
+        <a class="dropdown-item" href="Caidat.html">Cài đặt</a>
+        <a class="dropdown-item" href="login.html" onclick="logout()">Đăng xuất</a>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-inner slimscroll">
+    <div id="sidebar-menu" class="sidebar-menu">
+      <ul>
+        <li class="menu-title">Chính</li>
+        <li><a href="Admin.html"><i class="fa fa-dashboard"></i> <span>Bảng điều khiển</span></a></li>
+        <li><a href="Bacsi.html"><i class="fa fa-user-md"></i> <span>Bác sĩ</span></a></li>
+        <li><a href="Benhnhan.html"><i class="fa fa-wheelchair"></i> <span>Bệnh nhân</span></a></li>
+        <li class="active"><a href="Lichhen.html"><i class="fa fa-calendar"></i> <span>Lịch hẹn</span></a></li>
+        <li><a href="Nhanvien.html"><i class="fa fa-user"></i> <span>Nhân viên</span></a></li>
+        <li><a href="Khoa.html"><i class="fa fa-hospital-o"></i> <span>Khoa</span></a></li>
+        <li><a href="Ngaynghi.html"><i class="fa fa-calendar-times-o"></i> <span>Ngày nghỉ</span></a></li>
+        <li><a href="Chamcong.html"><i class="fa fa-check-square-o"></i> <span>Chấm công</span></a></li>
+        <li><a href="Taisan.html"><i class="fa fa-cube"></i> <span>Tài sản</span></a></li>
+        <li><a href="Trochuyen.html"><i class="fa fa-comments"></i> <span>Trò chuyện</span></a></li>
+        <li><a href="Caidat.html"><i class="fa fa-cog"></i> <span>Cài đặt</span></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Nội dung -->
+<div class="page-wrapper">
+  <div class="content">
+    <div class="row mb-3">
+      <div class="col-sm-6">
+        <h4 class="page-title">Quản lý Lịch khám bệnh</h4>
+      </div>
+      <div class="col-sm-6 text-right">
+        <button class="btn btn-primary float-right" onclick="openAddModal()">
+          <i class="fa fa-plus"></i> Thêm Lịch Khám
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table id="tableLichHen" class="table table-striped custom-table">
+            <thead class="bg-primary text-dark">
+              <tr>
+                <th>Mã lịch</th>
+                <th>Tên bác sĩ</th>
+                <th>Khoa</th>
+                <th>Ngày khám</th>
+                <th>Giờ khám</th>
+                <th>Phòng khám</th>
+                <th>Chẩn đoán</th>
+                <th>Trạng thái</th>
+                <th class="text-right">Hành động</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Dữ liệu sẽ load ở đây -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../AdminLayout/assets/js/jquery-3.2.1.min.js"></script>
+<script src="../AdminLayout/assets/js/popper.min.js"></script>
+<script src="../AdminLayout/assets/js/bootstrap.min.js"></script>
+<script src="../AdminLayout/assets/js/app.js"></script>
+<script>
+$(document).ready(function() {
+  loadAppointments();
+});
+
+async function loadAppointments() {
+  try {
+    const response = await fetch('http://localhost:3000/api/lichhen');
+    const lichhen = await response.json();
+    renderAppointments(lichhen);
+  } catch (error) {
+    console.error('❌ Lỗi tải lịch hẹn:', error);
+  }
+}
+
+function renderAppointments(lichhen) {
+  const tbody = document.querySelector("#tableLichHen tbody");
+  tbody.innerHTML = "";
+
+  lichhen.forEach(lich => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${lich.MaLichKham}</td>
+      <td>${lich.TenBacSi || ""}</td>
+      <td>${lich.Khoa || ""}</td>
+      <td>${lich.NgayCoTheKham ? new Date(lich.NgayCoTheKham).toLocaleDateString() : ""}</td>
+      <td>${lich.GioCoTheKham || ""}</td>
+      <td>${lich.PhongKham || ""}</td>
+      <td>${lich.ChanDoan || ""}</td>
+      <td>${lich.TrangThai || ""}</td>
+      <td class="text-right">
+        <button class="btn btn-sm btn-info" onclick='editAppointment(${JSON.stringify(lich)})'><i class="fa fa-pencil"></i></button>
+        <button class="btn btn-sm btn-danger" onclick='deleteAppointment(${lich.MaLichKham})'><i class="fa fa-trash"></i></button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function editAppointment(lich) {
+  document.getElementById("maLichKham").value = lich.MaLichKham;
+  document.getElementById("tenBacSi").value = lich.TenBacSi || "";
+  document.getElementById("khoa").value = lich.Khoa || "";
+  document.getElementById("ngayKham").value = lich.NgayCoTheKham ? lich.NgayCoTheKham.split("T")[0] : "";
+  document.getElementById("gioKham").value = lich.GioCoTheKham || "";
+  document.getElementById("phongKham").value = lich.PhongKham || "";
+  document.getElementById("chanDoan").value = lich.ChanDoan || "";
+  document.getElementById("trangThai").value = lich.TrangThai || "";
+  document.getElementById("maBenhNhan").value = lich.MaBenhNhan || "";
+  document.getElementById("maNhanVien").value = lich.MaNhanVien || "";
+  document.getElementById("maBacSi").value = lich.MaBacSi || "";
+
+  $('#addEditAppointmentModal').modal('show');
+}
+
+async function deleteAppointment(id) {
+  if (confirm("Bạn có chắc chắn muốn xoá lịch khám này?")) {
+    try {
+      const response = await fetch(`http://localhost:3000/api/lichhen/${id}`, { method: "DELETE" });
+      const result = await response.json();
+      if (response.ok) {
+        alert(result.message);
+        loadAppointments();
+      } else {
+        alert("❌ " + result.message);
+      }
+    } catch (error) {
+      console.error('❌ Lỗi xóa lịch:', error);
+    }
+  }
+}
+
+document.getElementById("appointmentForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const id = document.getElementById("maLichKham").value;
+  const appointment = {
+    TenBacSi: document.getElementById("tenBacSi").value,
+    Khoa: document.getElementById("khoa").value,
+    NgayCoTheKham: document.getElementById("ngayKham").value,
+    GioCoTheKham: document.getElementById("gioKham").value,
+    PhongKham: document.getElementById("phongKham").value,
+    ChanDoan: document.getElementById("chanDoan").value,
+    TrangThai: document.getElementById("trangThai").value,
+    MaBenhNhan: parseInt(document.getElementById("maBenhNhan").value),
+    MaNhanVien: parseInt(document.getElementById("maNhanVien").value),
+    MaBacSi: parseInt(document.getElementById("maBacSi").value)
+  };
+
+  const method = id ? "PUT" : "POST";
+  const url = id ? `http://localhost:3000/api/lichhen/${id}` : `http://localhost:3000/api/lichhen`;
+
+  try {
+    const response = await fetch(url, {
+      method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(appointment)
+    });
+
+    if (response.ok) {
+      $('#addEditAppointmentModal').modal('hide');
+      document.getElementById("appointmentForm").reset();
+      loadAppointments();
+      alert(id ? "✅ Cập nhật thành công!" : "✅ Thêm mới thành công!");
+    } else {
+      const result = await response.json();
+      alert("❌ " + result.message);
+    }
+  } catch (error) {
+    console.error('❌ Lỗi lưu lịch:', error);
+  }
+});
+
+function openAddModal() {
+  document.getElementById("appointmentForm").reset();
+  document.getElementById("maLichKham").value = "";
+  $('#addEditAppointmentModal').modal('show');
+}
+
+function logout() {
+  localStorage.clear();
+}
+</script>
+
+</body>
+</html>

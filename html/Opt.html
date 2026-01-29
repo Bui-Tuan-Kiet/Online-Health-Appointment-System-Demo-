@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Xác minh OTP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../AdminLayout/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../AdminLayout/assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../AdminLayout/assets/css/style.css">
+</head>
+<body>
+  <div class="main-wrapper account-wrapper">
+    <div class="account-page">
+      <div class="account-center">
+        <div class="account-box">
+          <form id="verifyOtpForm" class="form-signin">
+            <div class="account-logo text-center mb-4">
+              <a href="#"><img src="../AdminLayout/assets/img/logo-dark.png" alt="Logo"></a>
+            </div>
+            <h4 class="text-center mb-3">Nhập mã OTP đã gửi qua email</h4>
+
+            <div class="form-group">
+              <label>Mã OTP</label>
+              <input type="text" class="form-control" id="otpInput" placeholder="Nhập mã OTP" required>
+            </div>
+
+            <div class="form-group text-center">
+              <button type="submit" class="btn btn-primary btn-block">Xác minh</button>
+            </div>
+
+            <div class="text-center">
+              <a href="login.html">Quay lại đăng nhập</a>
+            </div>
+          </form>
+
+          <!-- Thông báo kết quả -->
+          <div id="verifyMsg" class="alert mt-3 text-center d-none"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../AdminLayout/assets/js/jquery-3.2.1.min.js"></script>
+  <script src="../AdminLayout/assets/js/bootstrap.min.js"></script>
+  <script>
+    $('#verifyOtpForm').on('submit', function (e) {
+      e.preventDefault();
+      const otp = $('#otpInput').val();
+
+      if (!otp) return alert("Vui lòng nhập mã OTP");
+
+      // Gọi API xác thực OTP (mô phỏng)
+      if (otp === '123456') {
+        $('#verifyMsg').removeClass('d-none alert-danger').addClass('alert-success').text('✅ Xác minh thành công! Đang chuyển hướng...');
+        setTimeout(() => {
+          window.location.href = "reset-password.html"; // Chuyển đến trang đặt lại mật khẩu
+        }, 1500);
+      } else {
+        $('#verifyMsg').removeClass('d-none alert-success').addClass('alert-danger').text('❌ Mã OTP không đúng!');
+      }
+    });
+  </script>
+</body>
+</html>

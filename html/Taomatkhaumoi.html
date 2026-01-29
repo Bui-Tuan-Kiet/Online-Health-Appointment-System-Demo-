@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đặt lại mật khẩu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../AdminLayout/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../AdminLayout/assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../AdminLayout/assets/css/style.css">
+</head>
+<body>
+  <div class="main-wrapper account-wrapper">
+    <div class="account-page">
+      <div class="account-center">
+        <div class="account-box">
+          <form id="resetPasswordForm" class="form-signin">
+            <div class="account-logo text-center mb-4">
+              <a href="#"><img src="../AdminLayout/assets/img/logo-dark.png" alt="Logo"></a>
+            </div>
+            <h4 class="text-center mb-3">Tạo mật khẩu mới</h4>
+
+            <div class="form-group">
+              <label>Mật khẩu mới</label>
+              <input type="password" class="form-control" id="newPassword" required>
+            </div>
+
+            <div class="form-group">
+              <label>Nhập lại mật khẩu</label>
+              <input type="password" class="form-control" id="confirmPassword" required>
+            </div>
+
+            <div class="form-group text-center">
+              <button type="submit" class="btn btn-primary btn-block">Đặt lại mật khẩu</button>
+            </div>
+
+            <div id="resetMsg" class="alert d-none text-center mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../AdminLayout/assets/js/jquery-3.2.1.min.js"></script>
+  <script>
+    $('#resetPasswordForm').on('submit', function (e) {
+      e.preventDefault();
+
+      const newPass = $('#newPassword').val();
+      const confirmPass = $('#confirmPassword').val();
+
+      if (newPass.length < 6) {
+        $('#resetMsg').removeClass('d-none alert-success').addClass('alert-danger').text("❌ Mật khẩu phải ít nhất 6 ký tự.");
+        return;
+      }
+
+      if (newPass !== confirmPass) {
+        $('#resetMsg').removeClass('d-none alert-success').addClass('alert-danger').text("❌ Mật khẩu không khớp.");
+        return;
+      }
+
+      // Mô phỏng cập nhật mật khẩu thành công
+      $('#resetMsg').removeClass('d-none alert-danger').addClass('alert-success').text("✅ Mật khẩu đã được thay đổi thành công!");
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 1500);
+    });
+  </script>
+</body>
+</html>

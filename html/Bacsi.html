@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="../AdminLayout/assets/img/favicon.ico">
+    <title>Preclinic - Medical & Hospital - Bootstrap 4 Admin Template</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../AdminLayout/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../AdminLayout/assets/css/style.css">
+</head>
+<body>
+<div class="main-wrapper">
+    <div class="header">
+        <div class="header-left">
+            <a href="index.html" class="logo">
+                <img src="../AdminLayout/assets/img/logo.png" width="35" height="35" alt=""> <span>Preclinic</span>
+            </a>
+        </div>
+        <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+        <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+        <ul class="nav user-menu float-right">
+            <li class="nav-item dropdown has-arrow">
+                <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                    <span class="user-img">
+                        <img src="../AdminLayout/assets/img/user.jpg" class="rounded-circle" width="24">
+                        <span class="status online"></span>
+                    </span>
+                    <span>Quản trị viên</span>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Hồ sơ</a>
+                    <a class="dropdown-item" href="Caidat.html">Cài đặt</a> <!-- Sửa đường dẫn -->
+                    <a class="dropdown-item" href="login.html">Đăng xuất</a> <!-- Sửa đường dẫn -->
+                </div>
+            </li>
+        </ul>
+        
+    </div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-inner slimscroll">
+            <div id="sidebar-menu" class="sidebar-menu">
+                <ul>
+                    <li class="menu-title">Chính</li>
+                    <li><a href="Admin.html"><i class="fa fa-dashboard"></i> <span>Bảng điều khiển</span></a></li>
+                    <li class="active"><a href="Bacsi.html"><i class="fa fa-user-md"></i> <span>Bác sĩ</span></a></li>
+                    <li><a href="Benhnhan.html"><i class="fa fa-wheelchair"></i> <span>Bệnh nhân</span></a></li>
+                    <li><a href="Lichhen.html"><i class="fa fa-calendar"></i> <span>Lịch hẹn</span></a></li>
+                    <li><a href="Nhanvien.html"><i class="fa fa-user"></i> <span>Nhân viên</span></a></li>
+                    <li><a href="Khoa.html"><i class="fa fa-hospital-o"></i> <span>Khoa</span></a></li>
+                    <li><a href="Ngaynghi.html"><i class="fa fa-calendar-times-o"></i> <span>Ngày nghỉ</span></a></li>
+                    <li><a href="Chamcong.html"><i class="fa fa-check-square-o"></i> <span>Chấm công</span></a></li>
+                    <li><a href="Taisan.html"><i class="fa fa-cube"></i> <span>Tài sản</span></a></li>
+                    <li><a href="Trochuyen.html"><i class="fa fa-comments"></i> <span>Trò chuyện</span></a></li>
+                    <li><a href="Caidat.html"><i class="fa fa-cog"></i> <span>Cài đặt</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="page-wrapper">
+        <div class="content">
+            <div class="row mb-3">
+                <div class="col-sm-12">
+                    <h4 class="page-title">Quản lý Bác sĩ</h4>
+                    <button class="btn btn-success" data-toggle="modal" data-target="#addDoctorModal">
+                        <i class="fa fa-plus"></i> Thêm Bác sĩ
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table id="tableBacSi" class="table table-bordered table-striped custom-table datatable">
+                            <thead class="bg-primary text-dark">
+                                <th>STT</th>
+                                <th>Họ tên</th>
+                                <th>Giới tính</th>
+                                <th>Ngày sinh</th>
+                                <th>Chuyên khoa</th>
+                                <th>Số điện thoại</th>
+                                <th>Kinh nghiệm</th>
+                                <th>Email</th>
+                                <th>Hành động</th>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addDoctorModal" tabindex="-1" aria-labelledby="addDoctorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <form id="doctorForm">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="addDoctorModalLabel">Thêm Bác sĩ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span> <!-- Đây là dấu X để đóng form -->
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="doctorId" name="id">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="hoTen" class="form-label">Họ và tên</label>
+                            <input type="text" class="form-control" id="hoTen" name="hoTen" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="gioiTinh" class="form-label">Giới tính</label>
+                            <select class="form-select" id="gioiTinh" name="gioiTinh" required>
+                                <option value="">-- Chọn --</option>
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                                <option value="Khác">Khác</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="ngaySinh" class="form-label">Ngày sinh</label>
+                            <input type="date" class="form-control" id="ngaySinh" name="ngaySinh" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="chuyenKhoa" class="form-label">Chuyên khoa</label>
+                            <select id="chuyenKhoa" class="form-select" required></select>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="sdt" class="form-label">Số điện thoại</label>
+                            <input type="tel" class="form-control" id="sdt" name="sdt" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="kinhnghiem" class="form-label">Kinh nghiệm</label>
+                            <input type="text" class="form-control" id="kinhnghiem" name="kinhnghiem" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button> <!-- sửa lại nút Đóng -->
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+<script src="../AdminLayout/assets/js/popper.min.js"></script>
+<script src="../AdminLayout/assets/js/bootstrap.min.js"></script>
+<script src="../AdminLayout/assets/js/jquery.slimscroll.js"></script>
+<script src="../AdminLayout/assets/js/app.js"></script>
+<script>
+   $(document).ready(function () {
+    $('#tableBacSi').DataTable();
+    loadKhoa().then(loadDoctors);
+});
+
+async function loadKhoa() {
+    try {
+        const res = await fetch("http://localhost:3000/api/khoa");
+        const data = await res.json();
+        const select = document.getElementById("chuyenKhoa");
+        select.innerHTML = `<option value="">-- Chọn khoa --</option>`;
+        data.forEach(khoa => {
+            const option = document.createElement("option");
+            option.value = khoa.MaKhoa;
+            option.textContent = khoa.Ten;
+            select.appendChild(option);
+        });
+    } catch (error) {
+        console.error("❌ Lỗi load khoa:", error);
+        alert("Không thể tải danh sách khoa!");
+    }
+}
+
+async function loadDoctors() {
+    try {
+        const doctors = await fetchDoctors();
+        renderDoctors(doctors);
+    } catch (error) {
+        console.error("❌ Lỗi load bác sĩ:", error);
+    }
+}
+
+async function fetchDoctors() {
+    const res = await fetch("http://localhost:3000/api/bacsi");
+    return await res.json();
+}
+
+function renderDoctors(doctors) {
+    const tbody = document.querySelector(".datatable tbody");
+    tbody.innerHTML = "";
+    doctors.forEach((doctor, index) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${doctor.HoTen || ""}</td>
+            <td>${doctor.GioiTinh || ""}</td>
+            <td>${doctor.NgaySinh ? doctor.NgaySinh.split("T")[0] : ""}</td>
+            <td>${doctor.ChuyenKhoa || ""}</td>
+            <td>${doctor.SoDienThoai || ""}</td>
+            <td>${doctor.KinhNghiem || ""}</td>
+            <td>${doctor.Email || ""}</td>
+            <td>
+                <button class="btn btn-sm btn-info" onclick='editDoctor(${JSON.stringify(doctor)})'>Sửa</button>
+                <button class="btn btn-sm btn-danger" onclick="deleteDoctor(${doctor.MaBacSi})">Xoá</button>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+async function deleteDoctor(id) {
+    if (confirm("Bạn có chắc chắn muốn xoá bác sĩ này?")) {
+        try {
+            const res = await fetch(`http://localhost:3000/api/bacsi/${id}`, { method: "DELETE" });
+            const result = await res.json();
+            if (res.ok) {
+                alert(result.message);
+                loadDoctors();
+            } else {
+                alert("❌ " + result.message);
+            }
+        } catch (error) {
+            console.error("❌ Lỗi khi xoá bác sĩ:", error);
+        }
+    }
+}
+
+function editDoctor(doctor) {
+    document.getElementById("doctorId").value = doctor.MaBacSi;
+    document.getElementById("hoTen").value = doctor.HoTen || "";
+    document.getElementById("gioiTinh").value = doctor.GioiTinh || "";
+    document.getElementById("ngaySinh").value = doctor.NgaySinh ? doctor.NgaySinh.split("T")[0] : "";
+    document.getElementById("chuyenKhoa").value = doctor.MaKhoa || "";
+    document.getElementById("sdt").value = doctor.SoDienThoai || "";
+    document.getElementById("kinhnghiem").value = doctor.KinhNghiem || "";
+    document.getElementById("email").value = doctor.Email || "";
+    $('#addDoctorModal').modal('show');
+}
+
+document.getElementById("doctorForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const id = document.getElementById("doctorId").value;
+    const doctor = {
+        hoTen: document.getElementById("hoTen").value,
+        gioiTinh: document.getElementById("gioiTinh").value,
+        ngaySinh: document.getElementById("ngaySinh").value,
+        chuyenKhoa: document.getElementById("chuyenKhoa").value,
+        sdt: document.getElementById("sdt").value,
+        kinhNghiem: document.getElementById("kinhnghiem").value,
+        email: document.getElementById("email").value
+    };
+    const method = id ? "PUT" : "POST";
+    const url = id ? `http://localhost:3000/api/bacsi/${id}` : `http://localhost:3000/api/bacsi`;
+    try {
+        await fetch(url, {
+            method,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(doctor)
+        });
+        $('#addDoctorModal').modal('hide');
+        document.getElementById("doctorForm").reset();
+        loadDoctors();
+    } catch (error) {
+        console.error("❌ Lỗi khi lưu bác sĩ:", error);
+    }
+});
+    </script>
+    
+</body>
+</html>

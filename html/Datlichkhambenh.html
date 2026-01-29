@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ | Đặt Lịch Khám Bệnh</title>
+    <link rel="icon" href="../img/favicon.ico" type="image/x-icon">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <div class="container py-3">
+        <div class="row align-items-center">
+            <div class="col-md-3">
+                <img src="../img/logo.png" alt="Mediplus Logo" style="height: 40px;">
+            </div>
+            <div class="col-md-9 d-flex justify-content-end align-items-center">
+                <nav class="nav">
+                    <a class="nav-link text-primary me-3" href="#">Trang Chủ</a>
+                    <a class="nav-link text-primary me-3" href="#">Dịch Vụ</a>
+                    <a class="nav-link text-primary me-3" href="#">Giới Thiệu</a>
+                    <a class="nav-link text-primary me-3" href="#">Liên Hệ</a>
+                </nav>
+                <a class="btn btn-primary ms-3" href="login.html">Đăng Nhập</a>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Đặt lịch khám -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-primary">Đặt Lịch Khám Bệnh</h2>
+            <p class="lead">Vui lòng điền đầy đủ thông tin để chúng tôi sắp xếp lịch khám phù hợp cho bạn.</p>
+        </div>
+        <form id="appointmentForm">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="hoTen" class="form-label">Họ và tên</label>
+                    <input type="text" class="form-control" id="hoTen" name="hoTen" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="soDienThoai" class="form-label">Số điện thoại</label>
+                    <input type="tel" class="form-control" id="soDienThoai" name="soDienThoai" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="ngayKham" class="form-label">Ngày khám</label>
+                    <input type="date" class="form-control" id="ngayKham" name="ngayKham" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="tuoi" class="form-label">Tuổi</label>
+                    <input type="number" class="form-control" id="tuoi" name="tuoi" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="gioHen" class="form-label">Giờ hẹn</label>
+                    <input type="time" class="form-control" id="gioHen" name="gioHen" required>
+                </div>                
+                <div class="col-md-12 mb-3">
+                    <label for="trieuChung" class="form-label">Triệu chứng</label>
+                    <textarea class="form-control" id="trieuChung" name="trieuChung" rows="3" required></textarea>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary px-5" type="submit">Xác Nhận Đặt Lịch</button>
+            </div>
+        </form>
+    </div>
+</section>
+<script>
+    document.getElementById("appointmentForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Lấy dữ liệu từ form
+        const hoTen = document.getElementById("hoTen").value.trim();
+        const soDienThoai = document.getElementById("soDienThoai").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const ngayKham = document.getElementById("ngayKham").value;
+        const trieuChung = document.getElementById("trieuChung").value.trim();
+        const tuoi = document.getElementById("tuoi").value.trim();
+        const gioHen = document.getElementById("gioHen").value;
+        // Kiểm tra bắt buộc
+        if (!hoTen || !soDienThoai || !ngayKham || !trieuChung) {
+            alert("Vui lòng điền đầy đủ các trường bắt buộc.");
+            return;
+        }
+
+        // Tạo đối tượng gửi đi
+        const data = {
+    hoTen,
+    tuoi: parseInt(tuoi),
+    soDienThoai,
+    email,
+    ngayKham,
+    gioHen,
+    trieuChung
+};
+
+fetch("http://localhost:5000/api/dangkykham", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+})
+.then(res => res.json())
+.then(res => {
+    alert("✅ " + res.message);
+    document.getElementById("appointmentForm").reset();
+})
+.catch(err => {
+    console.error("❌ Lỗi gửi dữ liệu:", err);
+    alert("Đặt lịch thất bại!");
+});
+       
+    });
+</script>
+
+<!-- Footer -->
+<footer class="bg-primary text-white pt-5">
+    <div class="container">
+        <div class="row">
+            <!-- Về chúng tôi -->
+            <div class="col-md-4">
+                <h5 class="mb-4">Về Chúng Tôi</h5>
+                <p>
+                    Chúng tôi cam kết mang đến cho khách hàng dịch vụ chăm sóc sức khỏe toàn diện, tận tâm và chuyên nghiệp với đội ngũ bác sĩ giàu kinh nghiệm và hệ thống cơ sở y tế hiện đại.
+                </p>
+                <div class="social-icons">
+                    <a href="#" class="text-white me-3"><i class="fa fa-facebook"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fa fa-twitter"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fa fa-instagram"></i></a>
+                    <a href="#" class="text-white"><i class="fa fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <!-- Liên kết nhanh -->
+            <div class="col-md-4">
+                <h5 class="mb-4">Liên Kết Nhanh</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Trang Chủ</a></li>
+                    <li><a href="#" class="text-white">Giới Thiệu</a></li>
+                    <li><a href="#" class="text-white">Dịch Vụ</a></li>
+                    <li><a href="#" class="text-white">Đặt Lịch Khám</a></li>
+                    <li><a href="#" class="text-white">Tin Tức</a></li>
+                    <li><a href="#" class="text-white">Liên Hệ</a></li>
+                </ul>
+            </div>
+
+            <!-- Liên hệ -->
+            <div class="col-md-4">
+                <h5 class="mb-4">Liên Hệ Với Chúng Tôi</h5>
+                <p><i class="fa fa-map-marker"></i> Số 123, Đường ABC, Hà Nội, Việt Nam</p>
+                <p><i class="fa fa-phone"></i> Hotline: 0996 945 635</p>
+                <p><i class="fa fa-envelope"></i> Email: Kiet20009@mail.com</p>
+                <form class="mt-3">
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Email của bạn" required>
+                        <button class="btn btn-light text-primary" type="submit">Đăng Ký</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <hr class="mt-5 mb-3 bg-light">
+        <div class="text-center pb-3">
+            © 2025 - Đặt lịch khám bệnh. Được phát triển bởi <a href="#" class="text-decoration-none text-white fw-bold">MR.KENWAY</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+ const isLoggedIn = localStorage.getItem("isLoggedIn");
+    const userName = localStorage.getItem("userName");
+
+    const navBar = document.querySelector(".nav");
+    const btnLogin = document.querySelector("a.btn");
+
+    if (isLoggedIn === "true" && userName && navBar) {
+        // Xóa nút "Đăng Nhập" nếu có
+        if (btnLogin) btnLogin.remove();
+
+        // Tạo dropdown tài khoản gọn gàng
+        const userDropdownHTML = `
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-primary" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-user-circle"></i> ${userName}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                    <li><a class="dropdown-item" href="#">Hồ sơ</a></li>
+                    <li><a class="dropdown-item" href="Caidat.html">Cài đặt</a></li>
+                    <li><a class="dropdown-item text-danger" href="#" id="logoutBtn">Đăng xuất</a></li>
+                </ul>
+            </li>
+        `;
+
+        navBar.insertAdjacentHTML("beforeend", userDropdownHTML);
+
+        // Đăng xuất
+        document.addEventListener("click", function (e) {
+            if (e.target && e.target.id === "logoutBtn") {
+                localStorage.clear();
+                window.location.href = "login.html";
+            }
+        });
+    }
+</script>
+
+<!-- Thư viện JS -->
+<script src="../lib/jquery/dist/jquery.min.js"></script>
+<script src="../lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/owl-carousel.js"></script>
+<script src="../js/niceselect.js"></script>
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/bootstrap-datepicker.js"></script>
+<script src="../js/slicknav.min.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>

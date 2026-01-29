@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+        <link rel="shortcut icon" type="image/x-icon" href="../AdminLayout/assets/img/favicon.ico">
+        <title>Preclinic - Medical & Hospital - Bootstrap 4 Admin Template</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../AdminLayout/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../AdminLayout/assets/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="../AdminLayout/assets/css/style.css">
+        <!--[if lt IE 9]>
+            <script src="../AdminLayout/assets/js/html5shiv.min.js"></script>
+            <script src="../AdminLayout/assets/js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    
+<body>
+    <div class="main-wrapper">
+
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <a href="index.html" class="logo">
+                    <img src="../AdminLayout/assets/img/logo.png" width="35" height="35" alt=""> <span>Preclinic</span>
+                </a>
+            </div>
+            <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+            <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+    
+            <ul class="nav user-menu float-right">
+                <li class="nav-item dropdown has-arrow">
+                    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                        <span class="user-img"><img src="../AdminLayout/assets/img/user.jpg" class="rounded-circle" width="24"><span class="status online"></span></span>
+                        <span>Quản trị viên</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Hồ sơ</a>
+                        <a class="dropdown-item" href="#">Cài đặt</a>
+                        <a class="dropdown-item" href="#">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">Chính</li>
+                    <li class="active"><a href="Admin.html"><i class="fa fa-dashboard"></i> <span>Bảng điều khiển</span></a></li>
+                    <li><a href="Bacsi.html"><i class="fa fa-user-md"></i> <span>Bác sĩ</span></a></li>
+                    <li><a href="Benhnhan.html"><i class="fa fa-wheelchair"></i> <span>Bệnh nhân</span></a></li>
+                    <li><a href="Lichhen.html"><i class="fa fa-calendar"></i> <span>Lịch hẹn</span></a></li>
+                    <li><a href="Nhanvien.html"><i class="fa fa-user"></i> <span>Nhân viên</span></a></li>
+                    <li><a href="Khoa.html"><i class="fa fa-hospital-o"></i> <span>Khoa</span></a></li>
+                    <li><a href="Ngaynghi.html"><i class="fa fa-calendar-times-o"></i> <span>Ngày nghỉ</span></a></li>
+                    <li><a href="Chamcong.html"><i class="fa fa-check-square-o"></i> <span>Chấm công</span></a></li>
+                    <li><a href="Taisan.html"><i class="fa fa-cube"></i> <span>Tài sản</span></a></li>
+                    <li><a href="Trochuyen.html"><i class="fa fa-comments"></i> <span>Trò chuyện</span></a></li>
+                    <li><a href="Caidat.html"><i class="fa fa-cog"></i> <span>Cài đặt</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+    
+            <!-- Tiêu đề Trang -->
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="page-title">Bảng Điều Khiển</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item active">Trang chủ / Quản trị</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Thống kê nhanh -->
+            <!-- Bắt đầu từ phần Thống kê nhanh -->
+<div class="row">
+    <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card bg-light border-0 shadow-sm">
+            <div class="card-body d-flex align-items-center">
+                <div class="dash-icon me-3">
+                    <i class="fa fa-user-md text-primary fa-2x"></i>
+                </div>
+                <div>
+                    <h4 id="soLuongBacSi" class="mb-0">0</h4>
+                    <span>Bác sĩ</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card bg-light border-0 shadow-sm">
+            <div class="card-body d-flex align-items-center">
+                <div class="dash-icon me-3">
+                    <i class="fa fa-wheelchair text-success fa-2x"></i>
+                </div>
+                <div>
+                    <h4 id="soLuongBenhNhan" class="mb-0">0</h4>
+                    <span>Bệnh nhân</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card bg-light border-0 shadow-sm">
+            <div class="card-body d-flex align-items-center">
+                <div class="dash-icon me-3">
+                    <i class="fa fa-calendar-check-o text-warning fa-2x"></i>
+                </div>
+                <div>
+                    <h4 id="soLuongLichHen" class="mb-0">0</h4> <!-- Đã thêm id="soLuongLichHen" -->
+                    <span>Lịch hẹn</span> <!-- Đổi chữ "Lịch khám hôm nay" thành "Lịch hẹn" -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card bg-light border-0 shadow-sm">
+            <div class="card-body d-flex align-items-center">
+                <div class="dash-icon me-3">
+                    <i class="fa fa-hospital-o text-danger fa-2x"></i>
+                </div>
+                <div>
+                    <h4 id="soLuongKhoa" class="mb-0">0</h4>
+                    <span>Khoa phòng</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- Biểu đồ tổng quan -->
+            <div class="row">
+                <div class="col-md-6 d-flex">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Thống kê đặt lịch theo tháng</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="appointmentChart" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Phân bổ bệnh nhân</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="patientPieChart" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Danh sách lịch khám -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Lịch Khám Sắp Tới</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Bệnh nhân</th>
+                                            <th>Bác sĩ</th>
+                                            <th>Ngày</th>
+                                            <th>Giờ</th>
+                                            <th>Trạng thái</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Trịnh Thị Hồng</td>
+                                            <td>Bác sĩ Trần Văn Thắng</td>
+                                            <td>01/05/2025</td>
+                                            <td>08:00</td>
+                                            <td><span class="badge bg-warning">Đang chờ</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Vũ Minh Hiếu</td>
+                                            <td>Bác sĩ Nguyễn Văn Hùng</td>
+                                            <td>01/05/2025</td>
+                                            <td>09:00</td>
+                                            <td><span class="badge bg-success">Đã xác nhận</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Lâm Thị Ngọc</td>
+                                            <td>Bác sĩ Đoàn Văn Khoa</td>
+                                            <td>02/05/2025</td>
+                                            <td>10:00</td>
+                                            <td><span class="badge bg-warning">Đang chờ</span></td>
+                                        </tr>
+                                    </tbody>
+                                    
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+    <!-- Footer -->
+<footer class="footer text-center bg-white mt-auto py-3">
+    <div class="container">
+        <span class="text-muted">© 2025 Đặt lịch khám bệnh - Phát triển bởi <a href="#" class="text-primary text-decoration-none">MR.KENWAY</a></span>
+    </div>
+</footer>
+
+<script src="../AdminLayout/assets/js/jquery-3.2.1.min.js"></script>
+<script src="../AdminLayout/assets/js/popper.min.js"></script>
+<script src="../AdminLayout/assets/js/bootstrap.min.js"></script>
+<script src="../AdminLayout/assets/js/jquery.slimscroll.js"></script>
+<script src="../AdminLayout/assets/js/Chart.bundle.js"></script>
+<script>
+    async function capNhatSoLuongDashboard() {
+        try {
+            const [resBacSi, resBenhNhan, resLichHen, resKhoa] = await Promise.all([
+                fetch('http://localhost:3000/api/bacsi'),
+                fetch('http://localhost:3000/api/benhnhan'),
+                fetch('http://localhost:3000/api/lichhen'),
+                fetch('http://localhost:3000/api/khoa')
+            ]);
+    
+            if (!resBacSi.ok || !resBenhNhan.ok || !resLichHen.ok || !resKhoa.ok) 
+                throw new Error("Không thể lấy dữ liệu!");
+    
+            const bacSiData = await resBacSi.json();
+            const benhNhanData = await resBenhNhan.json();
+            const lichHenData = await resLichHen.json();
+            const khoaData = await resKhoa.json();
+    
+            // Gán số lượng vào dashboard
+            document.getElementById('soLuongBacSi').textContent = bacSiData.length;
+            document.getElementById('soLuongBenhNhan').textContent = benhNhanData.length;
+            document.getElementById('soLuongLichHen').textContent = lichHenData.length;
+            document.getElementById('soLuongKhoa').textContent = khoaData.length;
+    
+            // Thống kê lịch hẹn theo tháng
+            const soLuongTheoThang = Array(12).fill(0);
+            lichHenData.forEach(lich => {
+                const thang = new Date(lich.NgayKham).getMonth(); // lấy tháng từ 0-11
+                soLuongTheoThang[thang]++;
+            });
+    
+            var ctx = document.getElementById("appointmentChart").getContext("2d");
+            new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: ["T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12"],
+                    datasets: [{
+                        label: "Lịch hẹn",
+                        backgroundColor: "#3cba9f",
+                        data: soLuongTheoThang
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+    
+            // Phân bổ bệnh nhân theo khoa
+            const phanBoKhoa = {};
+            khoaData.forEach(khoa => {
+                phanBoKhoa[khoa.Ten] = (phanBoKhoa[khoa.Ten] || 0) + 1;
+            });
+    
+            var ctx2 = document.getElementById("patientPieChart").getContext("2d");
+            new Chart(ctx2, {
+                type: "pie",
+                data: {
+                    labels: Object.keys(phanBoKhoa),
+                    datasets: [{
+                        data: Object.values(phanBoKhoa),
+                        backgroundColor: [
+                            "#4caf50", "#2196f3", "#ff9800", "#9c27b0", 
+                            "#e91e63", "#607d8b", "#00bcd4", "#ff5722"
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: "bottom" }
+                    }
+                }
+            });
+    
+        } catch (error) {
+            console.error("❌ Lỗi load số lượng hoặc biểu đồ:", error);
+        }
+    }
+    
+    // Gọi khi trang Admin load xong
+    document.addEventListener('DOMContentLoaded', capNhatSoLuongDashboard);
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Quên mật khẩu - Đặt Lịch Khám Bệnh</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../AdminLayout/assets/img/favicon.ico">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../AdminLayout/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../AdminLayout/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../AdminLayout/assets/css/style.css">
+</head>
+
+<body>
+    <div class="main-wrapper account-wrapper">
+        <div class="account-page">
+            <div class="account-center">
+                <div class="account-box">
+                    <form class="form-signin" action="#">
+                        <div class="account-logo text-center mb-4">
+                            <a href="Trangchu.html">
+                                <img src="../img/logo.png" alt="Logo" style="height: 50px;">
+                            </a>
+                        </div>
+
+                        <h4 class="text-center mb-3">Khôi phục mật khẩu</h4>
+
+                        <div class="form-group">
+                            <label>Chọn phương thức xác minh</label>
+                            <select class="form-control" id="verificationMethod" onchange="toggleFields()">
+                                <option value="">-- Chọn --</option>
+                                <option value="email">Gửi mã qua Email</option>
+                                <option value="phone">Gửi mã qua Số điện thoại</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group d-none" id="emailField">
+                            <label>Nhập Email của bạn</label>
+                            <input type="email" class="form-control" placeholder="example@gmail.com">
+                        </div>
+
+                        <div class="form-group d-none" id="phoneField">
+                            <label>Nhập Số điện thoại</label>
+                            <input type="tel" class="form-control" placeholder="098xxxxxxx">
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button class="btn btn-primary account-btn" type="submit">Gửi mã xác nhận</button>
+                        </div>
+
+                        <div class="text-center register-link">
+                            <a href="login.html">← Quay lại đăng nhập</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="../AdminLayout/assets/js/jquery-3.2.1.min.js"></script>
+    <script src="../AdminLayout/assets/js/popper.min.js"></script>
+    <script src="../AdminLayout/assets/js/bootstrap.min.js"></script>
+    <script src="../AdminLayout/assets/js/app.js"></script>
+
+    <!-- Script chuyển đổi Email / Phone -->
+    <script>
+        function toggleFields() {
+            const method = document.getElementById('verificationMethod').value;
+            document.getElementById('emailField').classList.toggle('d-none', method !== 'email');
+            document.getElementById('phoneField').classList.toggle('d-none', method !== 'phone');
+        }
+        $('#sendOtpForm').on('submit', function(e) {
+      e.preventDefault();
+      const email = $('#emailInput').val();
+      if (!email) return alert("Vui lòng nhập email hợp lệ.");
+
+      // Gọi API gửi OTP tại đây (mô phỏng):
+      console.log("Gửi OTP đến email:", email);
+      $('#otpSentMsg').removeClass('d-none');
+
+      // Bạn có thể redirect sang trang nhập mã OTP nếu muốn
+      // window.location.href = "verify-otp.html";
+    });
+    </script>
+    
+</body>
+</html>

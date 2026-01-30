@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 =======
 # Online-Health-Appointment-System-Demo-
 Self-developed Academic Project
->>>>>>> 1ce43fc (Resolve merge conflict and add demo mode explanation)
 # Hospital Appointment Booking System
 
 ## Project Overview

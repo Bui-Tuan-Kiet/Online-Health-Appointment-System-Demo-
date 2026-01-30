@@ -1,4 +1,3 @@
-=======
 # Online-Health-Appointment-System-Demo-
 Self-developed Academic Project
 # Hospital Appointment Booking System

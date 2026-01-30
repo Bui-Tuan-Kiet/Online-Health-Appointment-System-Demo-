@@ -1,7 +1,13 @@
 // routes/benhnhan.js
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { sql, poolPromise } = require('../config');
+
+let sql, poolPromise;
+
+if (process.env.DEMO_MODE !== "true") {
+  ({ sql, poolPromise } = require("../config"));
+}
+
 
 // ✅ GET tất cả bệnh nhân
 router.get('/', async (req, res) => {

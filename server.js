@@ -1,15 +1,19 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const isDemoMode = !process.env.DB_HOST;
+require("dotenv").config();
+
+const isDemoMode = process.env.DEMO_MODE === "true";
 
 let sql, poolPromise;
 
 if (!isDemoMode) {
   ({ sql, poolPromise } = require("./config"));
+  console.log("✅ Running with REAL database");
 } else {
-  console.log("⚠️ Database not configured. Running in DEMO MODE.");
+  console.log("⚠️ Running in DEMO MODE (NO database)");
 }
+
 
 const app = express();
 
@@ -26,6 +30,11 @@ app.listen(PORT, () => {
 
 // 🌟 Lấy toàn bộ bệnh nhân (READ)
 app.get('/api/benhnhan', async (req, res) => {
+     if (isDemoMode) {
+        return res.json([
+            { MaBenhNhan: 1, HoTen: "BN Demo", SoDienThoai: "0123" }
+        ]);
+    }
     try {
         const pool = await poolPromise;
         const result = await pool.request().query('SELECT * FROM BenhNhan');
@@ -59,6 +68,12 @@ app.post('/api/benhnhan', async (req, res) => {
 
 // 🌟 Cập nhật bệnh nhân (UPDATE)
 app.put('/api/benhnhan/:id', async (req, res) => {
+      if (isDemoMode) {
+        return res.json({
+            message: "Demo mode: Cập nhật bệnh nhân (giả lập)"
+        });
+    }
+
     try {
         const MaBenhNhan = req.params.id;
         const { HoTen, Email, SoDienThoai, DiaChi } = req.body;
@@ -78,6 +93,11 @@ app.put('/api/benhnhan/:id', async (req, res) => {
 
 // 🌟 Xóa bệnh nhân (DELETE)
 app.delete('/api/benhnhan/:id', async (req, res) => {
+    if (isDemoMode) {
+        return res.json({
+            message: "Demo mode: Xóa bệnh nhân (giả lập)"
+        });
+    }
     try {
         const MaBenhNhan = req.params.id;
         const pool = await poolPromise;
@@ -179,6 +199,20 @@ app.post('/api/dangky', async (req, res) => {
     }
 });
 app.get('/api/bacsi/full', async (req, res) => {
+      if (isDemoMode) {
+        return res.json([
+            {
+                MaBacSi: 1,
+                HoTen: "BS Demo Full",
+                GioiTinh: "Nam",
+                NgaySinh: "1980-01-01",
+                SoDienThoai: "0123456789",
+                KinhNghiem: "10 năm",
+                Email: "demo@hospital.com",
+                TenKhoa: "Nội tổng quát"
+            }
+        ]);
+    }
     try {
         const pool = await poolPromise;
         const result = await pool.request().query(`
@@ -198,6 +232,12 @@ app.get('/api/bacsi/full', async (req, res) => {
 
 // 🌟 GET tất cả bác sĩ
 app.get('/api/bacsi', async (req, res) => {
+      if (isDemoMode) {
+        return res.json([
+            { MaBacSi: 1, HoTen: "BS Demo 1", ChuyenKhoa: "Nội" },
+            { MaBacSi: 2, HoTen: "BS Demo 2", ChuyenKhoa: "Ngoại" }
+        ]);
+    }
     try {
         const pool = await poolPromise;
         const result = await pool.request().query('SELECT * FROM BacSi');
@@ -234,6 +274,11 @@ app.post('/api/bacsi', async (req, res) => {
 
 // 🌟 PUT cập nhật bác sĩ
 app.put('/api/bacsi/:id', async (req, res) => {
+    if (isDemoMode) {
+        return res.json({
+            message: "Demo mode: Cập nhật bác sĩ (giả lập)"
+        });
+    }
     try {
         const id = req.params.id;
         const { hoTen, gioiTinh, ngaySinh, chuyenKhoa, sdt } = req.body;
@@ -255,6 +300,11 @@ app.put('/api/bacsi/:id', async (req, res) => {
 
 // 🌟 DELETE xoá bác sĩ
 app.delete('/api/bacsi/:id', async (req, res) => {
+     if (isDemoMode) {
+        return res.json({
+            message: "Demo mode: Xóa bác sĩ (giả lập)"
+        });
+    }
     try {
         const id = req.params.id;
         const pool = await poolPromise;
@@ -265,48 +315,6 @@ app.delete('/api/bacsi/:id', async (req, res) => {
     } catch (err) {
         console.error("❌ Lỗi DELETE bác sĩ:", err);
         res.status(500).json({ message: "Lỗi server khi xoá bác sĩ" });
-    }
-});
-app.post('/api/dangky', async (req, res) => {
-      if (isDemoMode) {
-    return res.json({
-      message: "Demo mode: Appointment submitted successfully (no database)."
-    });
-  }
-    try {
-        const { tenDangNhap, matKhau, email, soDienThoai } = req.body;
-        const pool = await poolPromise;
-
-        // Kiểm tra tài khoản đã tồn tại chưa
-        const check = await pool.request()
-            .input('TenDangNhap', sql.NVarChar(50), tenDangNhap)
-            .input('Email', sql.NVarChar(100), email)
-            .query(`SELECT * FROM TaiKhoan WHERE TenDangNhap = @TenDangNhap OR Email = @Email`);
-
-        if (check.recordset.length > 0) {
-            return res.status(400).json({ success: false, message: 'Tên đăng nhập hoặc Email đã tồn tại!' });
-        }
-
-        // Thêm tài khoản mới
-        await pool.request()
-            .input('TenDangNhap', sql.NVarChar(50), tenDangNhap)
-            .input('MatKhau', sql.NVarChar(100), matKhau)
-            .input('Email', sql.NVarChar(100), email)
-            .input('SoDienThoai', sql.NVarChar(20), soDienThoai)
-            .input('BenhNhanId', sql.Int, null)
-            .input('BacSiId', sql.Int, null)
-            .input('NhanVienYTeId', sql.Int, null)
-            .input('QuanLyBenhVienId', sql.Int, null)
-            .query(`
-                INSERT INTO TaiKhoan (TenDangNhap, MatKhau, Email, SoDienThoai, BenhNhanId, BacSiId, NhanVienYTeId, QuanLyBenhVienId)
-                VALUES (@TenDangNhap, @MatKhau, @Email, @SoDienThoai, @BenhNhanId, @BacSiId, @NhanVienYTeId, @QuanLyBenhVienId)
-            `);
-
-        res.status(200).json({ success: true, message: 'Đăng ký thành công!' });
-
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ success: false, message: 'Lỗi server khi đăng ký!' });
     }
 });
 

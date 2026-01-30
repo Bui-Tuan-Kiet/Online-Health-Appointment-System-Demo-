@@ -1,19 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-require("dotenv").config();
-
-const isDemoMode = process.env.DEMO_MODE === "true";
-
-let sql, poolPromise;
-
-if (!isDemoMode) {
-  ({ sql, poolPromise } = require("./config"));
-  console.log("✅ Running with REAL database");
-} else {
-  console.log("⚠️ Running in DEMO MODE (NO database)");
-}
-
+const { sql, poolPromise } = require('./config');
 
 const app = express();
 
@@ -30,11 +18,6 @@ app.listen(PORT, () => {
 
 // 🌟 Lấy toàn bộ bệnh nhân (READ)
 app.get('/api/benhnhan', async (req, res) => {
-     if (isDemoMode) {
-        return res.json([
-            { MaBenhNhan: 1, HoTen: "BN Demo", SoDienThoai: "0123" }
-        ]);
-    }
     try {
         const pool = await poolPromise;
         const result = await pool.request().query('SELECT * FROM BenhNhan');
@@ -46,11 +29,6 @@ app.get('/api/benhnhan', async (req, res) => {
 
 // 🌟 Thêm bệnh nhân mới (CREATE)
 app.post('/api/benhnhan', async (req, res) => {
-      if (isDemoMode) {
-    return res.json({
-      message: "Demo mode: Appointment submitted successfully (no database)."
-    });
-  }
     try {
         const { HoTen, Email, SoDienThoai, DiaChi } = req.body;
         const pool = await poolPromise;
@@ -68,12 +46,6 @@ app.post('/api/benhnhan', async (req, res) => {
 
 // 🌟 Cập nhật bệnh nhân (UPDATE)
 app.put('/api/benhnhan/:id', async (req, res) => {
-      if (isDemoMode) {
-        return res.json({
-            message: "Demo mode: Cập nhật bệnh nhân (giả lập)"
-        });
-    }
-
     try {
         const MaBenhNhan = req.params.id;
         const { HoTen, Email, SoDienThoai, DiaChi } = req.body;
@@ -93,11 +65,6 @@ app.put('/api/benhnhan/:id', async (req, res) => {
 
 // 🌟 Xóa bệnh nhân (DELETE)
 app.delete('/api/benhnhan/:id', async (req, res) => {
-    if (isDemoMode) {
-        return res.json({
-            message: "Demo mode: Xóa bệnh nhân (giả lập)"
-        });
-    }
     try {
         const MaBenhNhan = req.params.id;
         const pool = await poolPromise;
@@ -110,11 +77,6 @@ app.delete('/api/benhnhan/:id', async (req, res) => {
     }
 });
 app.post('/api/dangkykham', async (req, res) => {
-      if (isDemoMode) {
-    return res.json({
-      message: "Demo mode: Appointment submitted successfully (no database)."
-    });
-  }
     try {
         const { hoTen, tuoi, ngayKham, gioHen, trieuChung, email, soDienThoai } = req.body;
         const pool = await poolPromise;
@@ -157,11 +119,6 @@ app.post('/api/dangkykham', async (req, res) => {
 });
 
 app.post('/api/dangky', async (req, res) => {
-      if (isDemoMode) {
-    return res.json({
-      message: "Demo mode: Appointment submitted successfully (no database)."
-    });
-  }
     try {
         const { tenDangNhap, matKhau, email, soDienThoai } = req.body;
         const pool = await poolPromise;
@@ -199,20 +156,6 @@ app.post('/api/dangky', async (req, res) => {
     }
 });
 app.get('/api/bacsi/full', async (req, res) => {
-      if (isDemoMode) {
-        return res.json([
-            {
-                MaBacSi: 1,
-                HoTen: "BS Demo Full",
-                GioiTinh: "Nam",
-                NgaySinh: "1980-01-01",
-                SoDienThoai: "0123456789",
-                KinhNghiem: "10 năm",
-                Email: "demo@hospital.com",
-                TenKhoa: "Nội tổng quát"
-            }
-        ]);
-    }
     try {
         const pool = await poolPromise;
         const result = await pool.request().query(`
@@ -232,12 +175,6 @@ app.get('/api/bacsi/full', async (req, res) => {
 
 // 🌟 GET tất cả bác sĩ
 app.get('/api/bacsi', async (req, res) => {
-      if (isDemoMode) {
-        return res.json([
-            { MaBacSi: 1, HoTen: "BS Demo 1", ChuyenKhoa: "Nội" },
-            { MaBacSi: 2, HoTen: "BS Demo 2", ChuyenKhoa: "Ngoại" }
-        ]);
-    }
     try {
         const pool = await poolPromise;
         const result = await pool.request().query('SELECT * FROM BacSi');
@@ -250,11 +187,6 @@ app.get('/api/bacsi', async (req, res) => {
 
 // 🌟 POST thêm bác sĩ
 app.post('/api/bacsi', async (req, res) => {
-      if (isDemoMode) {
-    return res.json({
-      message: "Demo mode: Appointment submitted successfully (no database)."
-    });
-  }
     try {
         const { hoTen, gioiTinh, ngaySinh, chuyenKhoa, sdt } = req.body;
         const pool = await poolPromise;
@@ -274,11 +206,6 @@ app.post('/api/bacsi', async (req, res) => {
 
 // 🌟 PUT cập nhật bác sĩ
 app.put('/api/bacsi/:id', async (req, res) => {
-    if (isDemoMode) {
-        return res.json({
-            message: "Demo mode: Cập nhật bác sĩ (giả lập)"
-        });
-    }
     try {
         const id = req.params.id;
         const { hoTen, gioiTinh, ngaySinh, chuyenKhoa, sdt } = req.body;
@@ -300,11 +227,6 @@ app.put('/api/bacsi/:id', async (req, res) => {
 
 // 🌟 DELETE xoá bác sĩ
 app.delete('/api/bacsi/:id', async (req, res) => {
-     if (isDemoMode) {
-        return res.json({
-            message: "Demo mode: Xóa bác sĩ (giả lập)"
-        });
-    }
     try {
         const id = req.params.id;
         const pool = await poolPromise;
@@ -317,4 +239,6 @@ app.delete('/api/bacsi/:id', async (req, res) => {
         res.status(500).json({ message: "Lỗi server khi xoá bác sĩ" });
     }
 });
-
+if (!process.env.DB_HOST) {
+  console.log("⚠️ Database not configured. Running in demo mode.");
+}

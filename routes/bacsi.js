@@ -1,27 +1,10 @@
 // routes/bacsi.js
 const express = require("express");
 const router = express.Router();
-
-let sql, poolPromise;
-
-if (process.env.DEMO_MODE !== "true") {
-  ({ sql, poolPromise } = require("../config"));
-}
-
+const { sql, poolPromise } = require("../config");
 
 // ✅ GET danh sách bác sĩ (JOIN với Khoa)
 router.get("/", async (req, res) => {
-     if (process.env.DEMO_MODE === "true") {
-    return res.json([
-      {
-        MaBacSi: 1,
-        HoTen: "Demo Doctor",
-        GioiTinh: "Nam",
-        ChuyenKhoa: "Nội tổng quát",
-        Email: "demo@hospital.com"
-      }
-    ]);
-  }
     try {
         const pool = await poolPromise;
         const result = await pool.request().query(`
